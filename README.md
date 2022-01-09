@@ -1,4 +1,81 @@
-# Twitter-Bot
-My bot will be a wellness bot and remind people to do things that are beneficial to their health. For example, “Drink your water”, “Go for a walk”, “Sit up straight”, “Stretch”, “Don't forget your vitamins”. All these tweets will help motivate people and having them sent on a set timer will help people get into a routine. The bot will generate such messages randomly every 2 hours. The messages may repeat, but that is okay because the messages are very general. Meaning, it is okay to print “Stretch” or “Drink your water” multiple times because it is normal for people to do this multiple times in a day.  
- 
-To create this twitter bot, I will be using simple_twit because it is the tweepy library. To code my bot, I will implement functions using the Status class attributes, User class attributes, and the General functions.  I will also use if statements, for loops, and importantly print statements. Print statements will be followed by a command for the code. This is important because it will print the tweets from the bot. I will also be using variables to store information to avoid small errors. I will be using strings within the code to represent the tweets. I will break down the code into multiple functions to help keep the code for the bot organized. I will also be using Boolean True and False statements to make decisions when a tweet is to be printed.  
+
+
+import sys
+import time
+import simple_twit
+
+# Project 04 Exercises
+    
+    # Exercise 1 - Get and print 10 tweets from your home timeline
+    
+    # Exercise 2 - Get and print 10 tweets from another user's timeline
+    
+    # Exercise 3 - Post 1 tweet to your timeline.
+    
+    # Exercise 4 - Post 1 media tweet to your timeline.
+    
+    
+
+def main():
+    # This call to simple_twit.create_api will create the api object that
+    # Tweepy needs in order to make authenticated requests to Twitter's API.
+    # Do not remove or change this function call.
+    # Pass the variable "api" holding this Tweepy API object as the first
+    # argument to simple_twit functions.
+    api = simple_twit.create_api()
+    simple_twit.version()
+
+    print()
+
+    x = simple_twit.send_tweet(api, "Hi")
+    print(type(x))
+
+    y = simple_twit.send_media_tweet(api, "Hey", "mag-field_1024.jpg")
+    print(type(y))
+
+    theytweets = simple_twit.get_user_timeline (api, "business", 10)
+    for t in theytweets:
+        print(t.id)
+        print(type (t.user))
+        print(t.author.name)
+        print(t.user.name)
+        print(t.full_text)
+        print()
+    
+    mytweets = simple_twit.get_home_timeline (api, 10)
+    print(len(mytweets))
+    print(type(mytweets))
+    print(type(mytweets[0]))
+    print()
+    for t in mytweets:
+        print(t.id)
+        print(type (t.user))
+        print(t.author.name)
+        print(t.user.name)
+        print(t.full_text)
+        print()
+    
+        
+    # YOUR BOT CODE BEGINS HERE
+    while True:
+        list_phrases = ["Make your bed", "Do a 15 min workout", "Drink water",
+                    "Get some work done; try to be productive :)",
+                    "Make sure your sitting up straight", "Drink some more water and get a snack :)",
+                    "Walk around a little", "Get some mental rest and have a goodnight's sleep", "Are you still up?",
+                    "It's really late. Home you are getting that REM with good dreams", "stretch",
+                    "I hope you slept well", "I guess the early bird catches the worm"]
+        for i in range(0, len(list_phrases)):
+            res = simple_twit.send_tweet(api, list_phrases[i])
+            print(type(res))
+            time.sleep(7200)
+            i+=1
+   
+        
+    
+    
+
+    # end def main()
+
+if __name__ == "__main__":
+       main()
+
